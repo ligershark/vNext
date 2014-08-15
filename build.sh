@@ -1,7 +1,15 @@
 #!/bin/bash
 # Add K to path and trigger build
 ver=`cat ~/.kre/alias/default.alias`
-add_to_path="/Users/"$USER"/.kre/packages/"$ver"/bin"
+
+# Credits for determining OS: http://stackoverflow.com/a/17072017/2166409 
+if [ "$(uname)" == "Darwin" ]; then
+    userdir="Users"       
+elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+    userdir="home"
+fi
+
+add_to_path="/"$userdir"/"$USER"/.kre/packages/"$ver"/bin"
 export PATH=$PATH:/usr/local/bin:$add_to_path
 directory="./"
 temp=$directory"project.json"
